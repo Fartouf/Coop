@@ -38,10 +38,10 @@ public class Entrepot {
 
     public void addLivraison(Livraison livraison){
         if( Livraisons.size() < capaciteLimite){
-            System.out.println("Arivée d'une livraison dans l'entrepot");
+            System.out.println("+1 livraison dans le stock de l'entrepot");
 
             this.Livraisons.add(livraison);
-            System.out.println(this.Livraisons);
+            //System.out.println(this.Livraisons);
             
         } else{
             System.out.println("L'entrepot est deja à capacité maximale");

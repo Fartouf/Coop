@@ -30,13 +30,9 @@ public class Camion {
             //si il reste du stock on ajoute dans le campion si il reste de la place
             if(capacitéDisponible > 0 && producteur.getStock().size() > 0){
 
-              System.out.println(producteur.getStock().size());
-
-            
                 Livraison livraisonActuelle = producteur.getStock().getFirst();
                 producteur.removeStock();
                 entrepot.addLivraison(livraisonActuelle);
-                //System.out.println("livraison vers l'entrpot effectuée");
                 
             }else if (capacitéDisponible > 0 && producteur.getStock().size() <= 0) {
                 //Cas ou l'entrepot est pas rempli mais le stock du fournisseur est vide on passe a l'iteration suivante

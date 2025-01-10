@@ -85,7 +85,7 @@ public class App {
 
             //Loop pour la simulation
             for(int semaine = 0; semaine < tempsDeSim; semaine++){
-                //livraisons des producteurs vers l'entrepot chaque semaine
+                //livraisons des producteurs vers l'entrepot chaque semaine 
                 for(Producteur produteur : producteurs){
                     System.out.println(produteur.getNomProducteur());
                     System.out.println("Nouvelle livraison disponibles chez le producteur : " + produteur.getNomProducteur());
@@ -108,6 +108,8 @@ public class App {
 
                     System.out.println(entrepot.getLivraisons());
                 }
+
+            
             }
         }
    
