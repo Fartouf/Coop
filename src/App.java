@@ -94,7 +94,7 @@ public class App {
                         System.out.println("Nombre de livraisons en stock chez " + produteur.getNomProducteur() + " : " + produteur.getStock().size());
                         for(Camion camion: camions){
 
-                            System.out.println("Livraisons effectué par le camion " + camion);
+                            System.out.println("Livraisons a l'entrepot effectué par le camion " + camion);
 
                             if(produteur.getStock().size() > 0){
                                 System.out.println("Livraison vers l'entrepot en cours, il reste " + produteur.getStock().size() + " Livraisons chez le producteur");
@@ -109,7 +109,24 @@ public class App {
                     System.out.println(entrepot.getLivraisons());
                 }
 
-            
+                /*
+                 * Une fois que toutes les livraisons sont effectuées des fournisseurs vers l'entrepot, on vide l'entrepot vers le supermarché
+                 */
+                while(entrepot.getLivraisons().size()>0){
+                    System.out.println("Le stock de l'entrepot s'élève à  " + entrepot.getLivraisons().size() + " unitées");
+
+                    for(Camion camion : camions){
+
+                        if(entrepot.getLivraisons().size()>0){
+                            System.out.println("Livraisons au hypermarché effectué par le camion " + camion);
+
+                            camion.LivraisonHypemarché(entrepot, hypermarche);
+                        } else {
+                            System.out.println("Tout le stock est livré au hypermarche");
+                        }
+                    }
+                }
+                
             }
         }
    

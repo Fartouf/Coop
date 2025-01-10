@@ -23,7 +23,7 @@ public class Camion {
         int capacitéDisponible = entrepot.getCapatiteDisponible();
         int capaciteCamion = this.getCapaciteCamion();
 
-        //on cree une nouvelle livraison et on l'ajoute au livraisons dans l'entrpot si il y a de la place.
+        //on cree une nouvelle livraison et on l'ajoute au livraisons dans l'entrpot si il y a de la place. ==> attenion modif pour eviter conflit de camion
          for(int c = 0; c < capaciteCamion; c++){
 
             
@@ -61,7 +61,7 @@ public class Camion {
                 entrepot.removeLivraison();
                 hypermarche.addStock(livraisonActuelle);
             }else{
-                //System.out.println("toute les livraisons sont effectué vers le hypermarché");
+                System.out.println("toute les livraisons sont effectué vers le hypermarché");
                 break;
             }
         }
