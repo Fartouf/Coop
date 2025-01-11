@@ -1,3 +1,5 @@
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Scanner;
 
@@ -81,9 +83,15 @@ public class App {
                 camions.add(new Camion(capacité, i+1));
             }
 
+            //Date et heure du jour
+            Calendar calendar = new GregorianCalendar(2025, 01, 11);
+
 
             //Loop pour la simulation
             for(int semaine = 0; semaine < tempsDeSim; semaine++){
+                
+                System.out.println("Semaine du " + calendar.get(Calendar.DATE)+ "/" + calendar.get(Calendar.MONTH)+ "/" + calendar.get(Calendar.YEAR)+ "\n");
+                
                 //livraisons des producteurs vers l'entrepot chaque semaine 
                 for(Producteur produteur : producteurs){
                     produteur.productuctionHebdo();
@@ -121,8 +129,8 @@ public class App {
                     }
                 }
 
-                System.out.println("Le stock dans le hypermarché s'éleve à " + hypermarche.getStock().size());
-                
+                System.out.println("Le stock dans le hypermarché s'éleve à " + hypermarche.getStock().size() + "\n");
+                calendar.add(Calendar.DATE, 7);
             }
         }
    
