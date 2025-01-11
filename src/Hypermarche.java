@@ -14,5 +14,9 @@ public class Hypermarche {
         this.stockHypermarche.add(livraison);
     }
 
+    public void addStocks(LinkedList<Livraison> livraison){
+        this.stockHypermarche.addAll(livraison);
+    }
+
 
 }

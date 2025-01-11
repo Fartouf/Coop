@@ -81,7 +81,11 @@ public class Camion {
 
             LinkedList<Livraison> charge = this.chargeVersEntrepot(producteur, entrepot);
             entrepot.addLivraisons(charge);
-            System.out.println("livraison de taille : " + charge.size() + " effectué à l'entrepot par le camion " + this);
+            if (charge.size() > 1){
+                System.out.println( charge.size() + "  Nouvelles livraisons du producteur" + producteur.getNomProducteur() + "effectué à l'entrepot par le camion " + this);
+            }else{
+                System.out.println("Nouvelle livraison du producteur" + producteur.getNomProducteur() + "effectué à l'entrepot par le camion " + this);
+            }
         }
         // Cas 2 le stock du producteur est vide et l'entrepot n'est pas rempli au maximum
         else if (stockProducteur <= 0 && capaciteDisponible > 0) {
@@ -101,6 +105,8 @@ public class Camion {
 
         int capaciteCamion = this.getCapaciteCamion();
 
+        LinkedList<Livraison> charge = new LinkedList<Livraison>();
+
         // on peut juste enlever un a un les elements de l'entreport sans soucis de
         // conflit vers le hypermarche (taille illimitée)
         for (int c = 0; c < capaciteCamion; c++) {
@@ -108,12 +114,21 @@ public class Camion {
                 // System.out.println("livraison vers le hypermarche");
                 Livraison livraisonActuelle = entrepot.getLivraisons().getFirst();
                 entrepot.removeLivraison();
-                hypermarche.addStock(livraisonActuelle);
+                charge.add(livraisonActuelle);
+
+                if(charge.size() > 1){
+                    System.out.println(charge.size() + " Nouvelles livraisons arrivées au hypermarché par le camion " + this);
+                }else{
+                    System.out.println("Nouvelle livraison arrivée au hypermarché par le camion " + this);
+                }
+                
             } else {
                 System.out.println("Toutes les livraisons sont effectuées vers l'hypermarché");
                 break;
             }
         }
+        hypermarche.addStocks(charge);
+
     }
 
 }

@@ -3,7 +3,6 @@ import java.util.LinkedList;
 public class Entrepot {
 
     private int capaciteLimite;
-    private int capaciteActuelle;
     private Hypermarche hypermarche;
     
 
@@ -19,9 +18,8 @@ public class Entrepot {
     }
 
     //TODO : remove cap actuelle
-    Entrepot(int capaciteLimite, int capaciteActuelle, Hypermarche hypermarche){
+    Entrepot(int capaciteLimite, Hypermarche hypermarche){
         this.capaciteLimite = capaciteLimite;
-        this.capaciteActuelle = capaciteActuelle;
         this.hypermarche = hypermarche;
     }
 
@@ -31,10 +29,6 @@ public class Entrepot {
 
     public int getCapatiteDisponible(){
         return this.capaciteLimite - Livraisons.size();
-    }
-
-    public void setCapaciteActuelle(int variationCapacité){
-        this.capaciteActuelle = this.capaciteActuelle + variationCapacité;
     }
 
     public void addLivraison(Livraison livraison){

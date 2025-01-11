@@ -6,7 +6,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         
         //Temps de la simulation en semaines.
-        int tempsDeSim = 12;
+        int tempsDeSim = 2;
 
         //liste de producteurs ==> hashset pour eviter des doublons
         HashSet<Producteur> producteurs = new HashSet<Producteur>();
@@ -70,7 +70,7 @@ public class App {
             //System.out.println(producteurs);
 
             //on cree l'entrpot en fonction de la taille choisie:
-            Entrepot entrepot = new Entrepot(capaciteEntrepot, 0, hypermarche);
+            Entrepot entrepot = new Entrepot(capaciteEntrepot, hypermarche);
 
 
             //on commence par creer les instances des camions
@@ -80,7 +80,6 @@ public class App {
                 int capacité = 1;
                 camions.add(new Camion(capacité));
             }
-
 
 
             //Loop pour la simulation
@@ -103,8 +102,6 @@ public class App {
                             }
                         }
                     }
-
-                    System.out.println(entrepot.getLivraisons());
                 }
 
                 /*
@@ -116,8 +113,6 @@ public class App {
                     for(Camion camion : camions){
 
                         if(entrepot.getLivraisons().size()>0){
-                            System.out.println("Livraisons au hypermarché effectué par le camion " + camion);
-
                             camion.LivraisonHypemarché(entrepot, hypermarche);
                         } else {
                             System.out.println("Tout le stock est livré au hypermarche");
