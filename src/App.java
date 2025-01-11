@@ -100,7 +100,7 @@ public class App {
                         System.out.println("Nombre de livraisons en stock chez " + produteur.getNomProducteur() + " : " + produteur.getStock().size());
                         for(Camion camion: camions){
                             if(produteur.getStock().size() > 0){
-                                System.out.println("Il reste " + entrepot.getCapatiteDisponible() + "  De capatié de stoquage à l'entrepot");
+                                System.out.println("Il reste " + entrepot.getCapatiteDisponible() + "  de capacité de stoquage à l'entrepot");
                                 camion.livraisonEntrepot(produteur, entrepot);
                                 //System.out.println("Livraison vers l'entrepot enffectué, il reste " + produteur.getStock().size() + " Livraisons chez le producteur");
 

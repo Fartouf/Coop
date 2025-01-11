@@ -86,7 +86,7 @@ public class Camion {
             if (charge.size() > 1){
                 System.out.println( charge.size() + " Nouvelles livraisons du producteur " + producteur.getNomProducteur() + " arrivées à l'entrepot par le camion n°" + this.numeroCamion);
             }else{
-                System.out.println("Nouvelle livraison du producteur" + producteur.getNomProducteur() + "effectué à l'entrepot par le camion n°" + this.numeroCamion);
+                System.out.println("Nouvelle livraison du producteur " + producteur.getNomProducteur() + " arrivées à l'entrepot par le camion n°" + this.numeroCamion);
             }
         }
         // Cas 2 le stock du producteur est vide et l'entrepot n'est pas rempli au maximum
