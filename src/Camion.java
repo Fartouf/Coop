@@ -1,9 +1,10 @@
+import java.util.LinkedList;
 
 public class Camion {
 
     private int capaciteCamion;
 
-    Camion(int capaciteCamion){
+    Camion(int capaciteCamion) {
         this.capaciteCamion = capaciteCamion;
     }
 
@@ -15,53 +16,101 @@ public class Camion {
         this.capaciteCamion = capaciteCamion;
     }
 
-    
-    //livraison vers un entrepot depuis le stock d'un producteur
-    public void livraisonEntrepot(Producteur producteur, Entrepot entrepot){
+    private LinkedList<Livraison> chargeVersEntrepot(Producteur producteur, Entrepot entrepot) {
+        int stockProducteur = producteur.getStock().size();
+        int capaciteEntrepot = entrepot.getCapatiteDisponible();
 
-        //verification de la capacité restante de l'entrot
-        int capacitéDisponible = entrepot.getCapatiteDisponible();
-        int capaciteCamion = this.getCapaciteCamion();
+        LinkedList<Livraison> chargeCamion = new LinkedList<Livraison>();
 
-        //on cree une nouvelle livraison et on l'ajoute au livraisons dans l'entrpot si il y a de la place. ==> attenion modif pour eviter conflit de camion
-         for(int c = 0; c < capaciteCamion; c++){
-
-            
-            //si il reste du stock on ajoute dans le campion si il reste de la place
-            if(capacitéDisponible > 0 && producteur.getStock().size() > 0){
-
-                Livraison livraisonActuelle = producteur.getStock().getFirst();
-                producteur.removeStock();
-                entrepot.addLivraison(livraisonActuelle);
-                
-            }else if (capacitéDisponible > 0 && producteur.getStock().size() <= 0) {
-                //Cas ou l'entrepot est pas rempli mais le stock du fournisseur est vide on passe a l'iteration suivante
-                break;
-            }else {
-                //Cas ou l'entrepot est rempli ==> on livre une parie avant de passer a l'itteration suivante ==> possiblitlté d'eliminer une des etapes 
-                //livrer directement apres chaque livraison vers l'entrpot
-                this.LivraisonHypemarché(entrepot, entrepot.getHypermarche());
-                break;            
+        // Cas 1 : la capacité disponible de l'entrerepot est superieure a la capacité
+        // de transport d'un camion
+        if (capaciteEntrepot > this.capaciteCamion) {
+            // Cas 1.1 : le camion peut transorter plus de livraisons que sont disponibles
+            // chez le producteur
+            if (stockProducteur < this.capaciteCamion) {
+                for (int s = 0; s < stockProducteur; s++) {
+                    // on ajoute tout le stock du fournisseur dans le camion
+                    chargeCamion.add(producteur.getStock().getFirst());
+                    //on eleve la livraison du stock du producteur
+                    producteur.removeStock();
+                }
             }
+            // Cas 1.2 : on peut remplir le camion entierement
+            else if (stockProducteur >= this.capaciteCamion) {
+                for (int c = 0; c < this.capaciteCamion; c++) {
+                    // on ajoute une livraison dans le camion
+                    chargeCamion.add(producteur.getStock().getFirst());
+                    //on eleve la livraison du stock du producteur
+                    producteur.removeStock();
+                }
+            }
+        }
+        // Cas 2 la capactité disponible dans l'entrepot est inferieure ou égale à la capacité de
+        // transport d'un camion
+        else if (capaciteEntrepot <= this.capaciteCamion) {
+            // Cas 2.1 le stock du fournisseur est supperieur a la capacité de l'entrepot
+            if (stockProducteur > capaciteEntrepot) {
+                for (int c = 0; c < capaciteEntrepot; c++) {
+                    // on ajoute une livraison au camion
+                    chargeCamion.add(producteur.getStock().getFirst());
+                    //on eleve la livraison du stock du producteur
+                    producteur.removeStock();
+                }
+            }
+            // Cas 2.2 le stock du fournisseur est inferieur ou égal à la capactié de l'entrepot
+            else if (stockProducteur <= capaciteEntrepot) {
+                for (int s = 0; s < stockProducteur; s++) {
+                    // on ajoute une livraison au camion
+                    chargeCamion.add(producteur.getStock().getFirst());
+                    //on eleve la livraison du stock du producteur
+                    producteur.removeStock();
+                }
+            }
+        }
+        return chargeCamion;
+    }
+
+    // livraison vers un entrepot depuis le stock d'un producteur
+    public void livraisonEntrepot(Producteur producteur, Entrepot entrepot) {
+
+        int stockProducteur = producteur.getStock().size();
+        int capaciteDisponible = entrepot.getCapatiteDisponible();
+
+        // Cas 1 le stock du producteur n'est pas vide et l'entrepot n'est pas rempli au maximum
+        if (stockProducteur > 0 && capaciteDisponible > 0) {
+
+            LinkedList<Livraison> charge = this.chargeVersEntrepot(producteur, entrepot);
+            entrepot.addLivraisons(charge);
+            System.out.println("livraison de taille : " + charge.size() + " effectué à l'entrepot par le camion " + this);
+        }
+        // Cas 2 le stock du producteur est vide et l'entrepot n'est pas rempli au maximum
+        else if (stockProducteur <= 0 && capaciteDisponible > 0) {
+            System.out.println("Plus de livraisons à effectuer vers l'entrepot");
+        }
+        // Cas 3 l'entrepot est a capacité maximale
+        else {
+            // on doit effectuer une livraison vers l'hypermarché pour faire de la place
+            this.LivraisonHypemarché(entrepot, entrepot.getHypermarche());
+            System.out.println("Livraison interemediaire vers l'hypermarché par le camion " + this);
         }
 
     }
-    
 
-    //livraison vers un hypermarché  
-    public void LivraisonHypemarché(Entrepot entrepot, Hypermarche hypermarche){
+    // livraison vers un hypermarché
+    public void LivraisonHypemarché(Entrepot entrepot, Hypermarche hypermarche) {
 
         int capaciteCamion = this.getCapaciteCamion();
 
-        //on enleve du stock de l'entrepot
-        for(int c = 0; c < capaciteCamion; c++){
-            if (entrepot.getLivraisons().size() > 0){
-                //System.out.println("livraison vers le hypermarche");
+        // on peut juste enlever un a un les elements de l'entreport sans soucis de
+        // conflit vers le hypermarche (taille illimitée)
+        for (int c = 0; c < capaciteCamion; c++) {
+            if (entrepot.getLivraisons().size() > 0) {
+                // System.out.println("livraison vers le hypermarche");
                 Livraison livraisonActuelle = entrepot.getLivraisons().getFirst();
                 entrepot.removeLivraison();
                 hypermarche.addStock(livraisonActuelle);
-            }else{
-                System.out.println("toute les livraisons sont effectué vers le hypermarché");
+            } else {
+                System.out.println("Toutes les livraisons sont effectuées vers l'hypermarché");
                 break;
             }
         }

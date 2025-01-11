@@ -6,7 +6,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         
         //Temps de la simulation en semaines.
-        int tempsDeSim = 1;
+        int tempsDeSim = 12;
 
         //liste de producteurs ==> hashset pour eviter des doublons
         HashSet<Producteur> producteurs = new HashSet<Producteur>();
@@ -27,7 +27,7 @@ public class App {
 
             int capaciteEntrepot = userInput.nextInt();
 
-            
+            //TODO : remove capacité
             Hypermarche hypermarche = new Hypermarche(500);
 
             
@@ -56,6 +56,7 @@ public class App {
             //liste des noms deja utilisé
             HashSet<String> nomsUtilise = new HashSet<String>();
 
+            //TODO : verifier
             //on commence par creer les instances des producteurs
             for(int i = 0; i < nbProducteur; i++){
                 int index = (int)(Math.random() * nomsProducteurs.length); 
@@ -76,29 +77,26 @@ public class App {
             for(int i = 0; i < nbCam; i++){
                 //capacité du camion
                 //int capacité = (int)((Math.random() * 5)+1);
-                int capacité = 5;
+                int capacité = 1;
                 camions.add(new Camion(capacité));
             }
 
-            //System.out.println(camions);
 
 
             //Loop pour la simulation
             for(int semaine = 0; semaine < tempsDeSim; semaine++){
                 //livraisons des producteurs vers l'entrepot chaque semaine 
                 for(Producteur produteur : producteurs){
-                    System.out.println(produteur.getNomProducteur());
-                    System.out.println("Nouvelle livraison disponibles chez le producteur : " + produteur.getNomProducteur());
                     produteur.productuctionHebdo();
+                    System.out.println("Nouvelle livraison disponibles chez le producteur : " + produteur.getNomProducteur());
                     while(produteur.getStock().size() > 0){
                         System.out.println("Nombre de livraisons en stock chez " + produteur.getNomProducteur() + " : " + produteur.getStock().size());
                         for(Camion camion: camions){
-
-                            System.out.println("Livraisons a l'entrepot effectué par le camion " + camion);
-
                             if(produteur.getStock().size() > 0){
-                                System.out.println("Livraison vers l'entrepot en cours, il reste " + produteur.getStock().size() + " Livraisons chez le producteur");
+                                System.out.println("Il reste " + entrepot.getCapatiteDisponible() + "  De capatié de stoquage à l'entrepot");
                                 camion.livraisonEntrepot(produteur, entrepot);
+                                //System.out.println("Livraison vers l'entrepot enffectué, il reste " + produteur.getStock().size() + " Livraisons chez le producteur");
+
                             }else{
                                 System.out.println("Toute la marchandise est à l'entrepot");
                                 break;
@@ -123,9 +121,12 @@ public class App {
                             camion.LivraisonHypemarché(entrepot, hypermarche);
                         } else {
                             System.out.println("Tout le stock est livré au hypermarche");
+                            break;
                         }
                     }
                 }
+
+                System.out.println("Le stock dans le hypermarché s'éleve à " + hypermarche.getStock().size());
                 
             }
         }

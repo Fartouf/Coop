@@ -24,6 +24,7 @@ public class Producteur {
 
 
     Producteur(String nomProducteur, int frequenceDeProduction){
+        //TODO : changer 
         this.frequenceDeProduction = frequenceDeProduction;
         this.nomProducteur = nomProducteur;
     }

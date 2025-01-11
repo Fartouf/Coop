@@ -18,6 +18,7 @@ public class Entrepot {
         return Livraisons;
     }
 
+    //TODO : remove cap actuelle
     Entrepot(int capaciteLimite, int capaciteActuelle, Hypermarche hypermarche){
         this.capaciteLimite = capaciteLimite;
         this.capaciteActuelle = capaciteActuelle;
@@ -38,11 +39,19 @@ public class Entrepot {
 
     public void addLivraison(Livraison livraison){
         if( Livraisons.size() < capaciteLimite){
-            System.out.println("+1 livraison dans le stock de l'entrepot");
-
+            //System.out.println("+1 livraison dans le stock de l'entrepot");
             this.Livraisons.add(livraison);
-            //System.out.println(this.Livraisons);
             
+        } else{
+            System.out.println("L'entrepot est deja à capacité maximale");
+        }
+    }
+
+    public void addLivraisons(LinkedList<Livraison> livraisons){
+        if( Livraisons.size() < capaciteLimite){
+            //System.out.println(livraisons.size() + " livraisons ajoutées a l'entrepot");
+
+            this.Livraisons.addAll(livraisons);            
         } else{
             System.out.println("L'entrepot est deja à capacité maximale");
         }
