@@ -3,9 +3,11 @@ import java.util.LinkedList;
 public class Camion {
 
     private int capaciteCamion;
+    private int numeroCamion;
 
-    Camion(int capaciteCamion) {
+    Camion(int capaciteCamion, int numeroCamion) {
         this.capaciteCamion = capaciteCamion;
+        this.numeroCamion = numeroCamion;
     }
 
     public int getCapaciteCamion() {
@@ -82,9 +84,9 @@ public class Camion {
             LinkedList<Livraison> charge = this.chargeVersEntrepot(producteur, entrepot);
             entrepot.addLivraisons(charge);
             if (charge.size() > 1){
-                System.out.println( charge.size() + "  Nouvelles livraisons du producteur" + producteur.getNomProducteur() + "effectué à l'entrepot par le camion " + this);
+                System.out.println( charge.size() + " Nouvelles livraisons du producteur " + producteur.getNomProducteur() + " arrivées à l'entrepot par le camion n°" + this.numeroCamion);
             }else{
-                System.out.println("Nouvelle livraison du producteur" + producteur.getNomProducteur() + "effectué à l'entrepot par le camion " + this);
+                System.out.println("Nouvelle livraison du producteur" + producteur.getNomProducteur() + "effectué à l'entrepot par le camion n°" + this.numeroCamion);
             }
         }
         // Cas 2 le stock du producteur est vide et l'entrepot n'est pas rempli au maximum
@@ -95,7 +97,7 @@ public class Camion {
         else {
             // on doit effectuer une livraison vers l'hypermarché pour faire de la place
             this.LivraisonHypemarché(entrepot, entrepot.getHypermarche());
-            System.out.println("Livraison interemediaire vers l'hypermarché par le camion " + this);
+            System.out.println("Livraison interemediaire vers l'hypermarché par le camion n°" + this.numeroCamion);
         }
 
     }
@@ -114,19 +116,18 @@ public class Camion {
                 // System.out.println("livraison vers le hypermarche");
                 Livraison livraisonActuelle = entrepot.getLivraisons().getFirst();
                 entrepot.removeLivraison();
-                charge.add(livraisonActuelle);
-
-                if(charge.size() > 1){
-                    System.out.println(charge.size() + " Nouvelles livraisons arrivées au hypermarché par le camion " + this);
-                }else{
-                    System.out.println("Nouvelle livraison arrivée au hypermarché par le camion " + this);
-                }
-                
+                charge.add(livraisonActuelle);  
             } else {
-                System.out.println("Toutes les livraisons sont effectuées vers l'hypermarché");
                 break;
             }
         }
+
+        if(charge.size() > 1){
+            System.out.println(charge.size() + " Nouvelles livraisons arrivées au hypermarché par le camion n°" + this.numeroCamion);
+        }else{
+            System.out.println("Nouvelle livraison arrivée au hypermarché par le camion n°" + this.numeroCamion);
+        }
+
         hypermarche.addStocks(charge);
 
     }

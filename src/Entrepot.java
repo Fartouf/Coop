@@ -17,7 +17,6 @@ public class Entrepot {
         return Livraisons;
     }
 
-    //TODO : remove cap actuelle
     Entrepot(int capaciteLimite, Hypermarche hypermarche){
         this.capaciteLimite = capaciteLimite;
         this.hypermarche = hypermarche;
