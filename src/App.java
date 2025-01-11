@@ -27,8 +27,7 @@ public class App {
 
             int capaciteEntrepot = userInput.nextInt();
 
-            //TODO : remove capacité
-            Hypermarche hypermarche = new Hypermarche(500);
+            Hypermarche hypermarche = new Hypermarche();
 
             
             //liste des noms d'agriculteurs possibles
@@ -56,14 +55,15 @@ public class App {
             //liste des noms deja utilisé
             HashSet<String> nomsUtilise = new HashSet<String>();
 
-            //TODO : verifier
             //on commence par creer les instances des producteurs
             for(int i = 0; i < nbProducteur; i++){
                 int index = (int)(Math.random() * nomsProducteurs.length); 
-                while(!(nomsUtilise.contains(nomsProducteurs[index]))){
+                if(nomsUtilise.contains(nomsProducteurs[index])){
+                    i -= 1;
+                } else {
                     nomsUtilise.add(nomsProducteurs[index]);
-                    producteurs.add(new Producteur(nomsProducteurs[index], 3));
-                }     
+                    producteurs.add(new Producteur(nomsProducteurs[index]));
+                }    
 
             }
 

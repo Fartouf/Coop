@@ -3,7 +3,6 @@ import java.util.LinkedList;
 public class Producteur {
 
     private String nomProducteur;
-    private int frequenceDeProduction;
 
     private LinkedList<Livraison> stock = new LinkedList<Livraison>();
 
@@ -21,24 +20,10 @@ public class Producteur {
         this.stock.removeFirst();
     }
 
-
-
-    Producteur(String nomProducteur, int frequenceDeProduction){
-        //TODO : changer 
-        this.frequenceDeProduction = frequenceDeProduction;
+    Producteur(String nomProducteur){
         this.nomProducteur = nomProducteur;
     }
-
-
-    public int getFrequenceDeProduction() {
-        return frequenceDeProduction;
-    }
-
-    public void setFrequenceDeProduction(int frequenceDeProduction) {
-        this.frequenceDeProduction = frequenceDeProduction;
-    }
-
-        
+   
     public String getNomProducteur() {
         return nomProducteur;
     }
@@ -49,7 +34,11 @@ public class Producteur {
     }
 
     public void productuctionHebdo(){
-        for(int c = 0; c < this.getFrequenceDeProduction(); c++){
+
+        //Nombre de livraisons par semaine
+        int productuctionHebdo = ((int)(Math.random() * 5) +1); 
+
+        for(int c = 0; c < productuctionHebdo ; c++){
             //on cree une nouvelle livraison en focntion de la frequence de production
             this.addStock(new Livraison(this));
         }
