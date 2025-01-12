@@ -2,9 +2,34 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Scanner;
+import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Formatter;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
 
 
 public class App {
+
+    private static final Logger log = Logger.getLogger("global");
+    private static FileHandler fileHandler;
+
+    static {
+        try {
+            fileHandler = new FileHandler("Log.log", false);
+            fileHandler.setFormatter(new Formatter() {
+                @Override
+                public String format(LogRecord record) {
+                    //return record.getLevel() + ": " + record.getMessage() + "\n";
+                    return record.getMessage() + "\n";
+                }
+            });
+            log.addHandler(fileHandler);
+        } catch (IOException e) {
+            System.out.println("Error initializing FileHandler: " + e.getMessage());
+        }
+    }
+
     public static void main(String[] args) throws Exception {
         
         //Temps de la simulation en semaines.
@@ -17,6 +42,7 @@ public class App {
         HashSet<Camion> camions = new HashSet<Camion>();
 
         try (Scanner userInput = new Scanner(System.in)) {
+
             System.out.println("Veuillez entrer le nombre de Camions à Disposition:");
 
             int nbCam = userInput.nextInt();
@@ -89,7 +115,9 @@ public class App {
 
             //Loop pour la simulation
             for(int semaine = 0; semaine < tempsDeSim; semaine++){
-                
+                //log.info("\n");
+                //log.info("Semaine du " + calendar.get(Calendar.DATE)+ "/" + calendar.get(Calendar.MONTH)+ "/" + calendar.get(Calendar.YEAR)+ "\n");
+                //System.out.println("\n");
                 System.out.println("Semaine du " + calendar.get(Calendar.DATE)+ "/" + calendar.get(Calendar.MONTH)+ "/" + calendar.get(Calendar.YEAR)+ "\n");
                 
                 //livraisons des producteurs vers l'entrepot chaque semaine 
@@ -101,7 +129,7 @@ public class App {
                         for(Camion camion: camions){
                             if(produteur.getStock().size() > 0){
                                 System.out.println("Il reste " + entrepot.getCapatiteDisponible() + "  de capacité de stoquage à l'entrepot");
-                                camion.livraisonEntrepot(produteur, entrepot);
+                                camion.livraisonEntrepot(produteur, entrepot, log);
                                 //System.out.println("Livraison vers l'entrepot enffectué, il reste " + produteur.getStock().size() + " Livraisons chez le producteur");
 
                             }else{
@@ -121,7 +149,7 @@ public class App {
                     for(Camion camion : camions){
 
                         if(entrepot.getLivraisons().size()>0){
-                            camion.LivraisonHypemarché(entrepot, hypermarche);
+                            camion.LivraisonHypemarché(entrepot, hypermarche, log);
                         } else {
                             System.out.println("Tout le stock est livré au hypermarche");
                             break;
@@ -131,6 +159,17 @@ public class App {
 
                 System.out.println("Le stock dans le hypermarché s'éleve à " + hypermarche.getStock().size() + "\n");
                 calendar.add(Calendar.DATE, 7);
+            }
+        } catch (Exception e) {
+            System.out.println("Error handeling user input: " + e.getMessage());
+        }
+
+        //on ferme le filehandler
+        if (fileHandler != null) {
+            try {
+                fileHandler.close();
+            } catch (Exception e) {
+                System.out.println("Error closing FileHandler: " + e.getMessage());
             }
         }
    

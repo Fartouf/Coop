@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+import java.util.logging.Logger;
 
 public class Camion {
 
@@ -73,7 +74,7 @@ public class Camion {
     }
 
     // livraison vers un entrepot depuis le stock d'un producteur
-    public void livraisonEntrepot(Producteur producteur, Entrepot entrepot) {
+    public void livraisonEntrepot(Producteur producteur, Entrepot entrepot, Logger log) {
 
         int stockProducteur = producteur.getStock().size();
         int capaciteDisponible = entrepot.getCapatiteDisponible();
@@ -86,6 +87,7 @@ public class Camion {
             if (charge.size() > 1){
                 System.out.println( charge.size() + " Nouvelles livraisons du producteur " + producteur.getNomProducteur() + " arrivées à l'entrepot par le camion n°" + this.numeroCamion);
             }else{
+                //log.info(("Nouvelle livraison du producteur " + producteur.getNomProducteur() + " arrivées à l'entrepot par le camion n°" + this.numeroCamion));
                 System.out.println("Nouvelle livraison du producteur " + producteur.getNomProducteur() + " arrivées à l'entrepot par le camion n°" + this.numeroCamion);
             }
         }
@@ -96,14 +98,15 @@ public class Camion {
         // Cas 3 l'entrepot est a capacité maximale
         else {
             // on doit effectuer une livraison vers l'hypermarché pour faire de la place
-            this.LivraisonHypemarché(entrepot, entrepot.getHypermarche());
+            this.LivraisonHypemarché(entrepot, entrepot.getHypermarche(), log);
+            //log.info("Livraison interemediaire vers l'hypermarché par le camion n°" + this.numeroCamion);
             System.out.println("Livraison interemediaire vers l'hypermarché par le camion n°" + this.numeroCamion);
         }
 
     }
 
     // livraison vers un hypermarché
-    public void LivraisonHypemarché(Entrepot entrepot, Hypermarche hypermarche) {
+    public void LivraisonHypemarché(Entrepot entrepot, Hypermarche hypermarche, Logger log) {
 
         int capaciteCamion = this.getCapaciteCamion();
 
@@ -123,13 +126,13 @@ public class Camion {
         }
 
         if(charge.size() > 1){
+            //log.info(charge.size() + " Nouvelles livraisons arrivées au hypermarché par le camion n°" + this.numeroCamion);
             System.out.println(charge.size() + " Nouvelles livraisons arrivées au hypermarché par le camion n°" + this.numeroCamion);
         }else{
+            //log.info("Nouvelle livraison arrivée au hypermarché par le camion n°" + this.numeroCamion);
             System.out.println("Nouvelle livraison arrivée au hypermarché par le camion n°" + this.numeroCamion);
         }
-
         hypermarche.addStocks(charge);
-
     }
 
 }
