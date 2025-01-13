@@ -6,6 +6,10 @@ public class Producteur {
 
     private LinkedList<Livraison> stock = new LinkedList<Livraison>();
 
+    Producteur(String nomProducteur){
+        this.nomProducteur = nomProducteur;
+    }
+
 
     public LinkedList<Livraison> getStock() {
         return stock;
@@ -18,10 +22,6 @@ public class Producteur {
 
     public void removeStock() {
         this.stock.removeFirst();
-    }
-
-    Producteur(String nomProducteur){
-        this.nomProducteur = nomProducteur;
     }
    
     public String getNomProducteur() {

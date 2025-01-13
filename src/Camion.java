@@ -15,9 +15,6 @@ public class Camion {
         return capaciteCamion;
     }
 
-    public void setCapaciteCamion(int capaciteCamion) {
-        this.capaciteCamion = capaciteCamion;
-    }
 
     private LinkedList<Livraison> chargeVersEntrepot(Producteur producteur, Entrepot entrepot) {
         int stockProducteur = producteur.getStock().size();

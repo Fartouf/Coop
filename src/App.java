@@ -43,21 +43,73 @@ public class App {
 
         try (Scanner userInput = new Scanner(System.in)) {
 
+            boolean entreValide = false;
+
             System.out.println("Veuillez entrer le nombre de Camions à Disposition:");
 
-            int nbCam = userInput.nextInt();
+            int nbCam = 0;
 
+            while (!entreValide) {
+    
+                String entre = userInput.nextLine(); 
+
+                try {
+                    nbCam = Integer.parseInt(entre); 
+                    if (nbCam < 0) {
+                        System.out.println("Veuillez entrer un nombre supérieur à 0 SVP:");
+                    } else {
+                        entreValide = true; 
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Veuillez entrer un nombre valide SVP:");
+                }
+            }
+
+
+            entreValide = false;
             System.out.println("Veuillez entrer le nombre de producteurs:");
 
-            int nbProducteur = userInput.nextInt();
+            int nbProducteur = 0;
 
+            while (!entreValide) {
+    
+                String entre = userInput.nextLine(); 
+
+                try {
+                    nbProducteur = Integer.parseInt(entre); 
+                    if (nbProducteur < 0) {
+                        System.out.println("Veuillez entrer un nombre supérieur à 0 SVP:");
+                    } else {
+                        entreValide = true; 
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Veuillez entrer un nombre valide SVP:");
+                }
+            }
+
+            entreValide = false;
             System.out.println("Veuillez entrer la capacité de l'entrepot:");
 
-            int capaciteEntrepot = userInput.nextInt();
+            int capaciteEntrepot = 0;
+
+            while (!entreValide) {
+    
+                String entre = userInput.nextLine(); 
+
+                try {
+                    capaciteEntrepot = Integer.parseInt(entre); 
+                    if (capaciteEntrepot < 0) {
+                        System.out.println("Veuillez entrer un nombre supérieur à 0 SVP:");
+                    } else {
+                        entreValide = true; 
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Veuillez entrer un nombre valide SVP:");
+                }
+            }
 
             Hypermarche hypermarche = new Hypermarche();
 
-            
             //liste des noms d'agriculteurs possibles
             String[] nomsProducteurs = {"Aggregate Agro",
             "Agricultural Gain",

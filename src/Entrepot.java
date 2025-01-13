@@ -5,6 +5,10 @@ public class Entrepot {
     private int capaciteLimite;
     private Hypermarche hypermarche;
     
+    Entrepot(int capaciteLimite, Hypermarche hypermarche){
+        this.capaciteLimite = capaciteLimite;
+        this.hypermarche = hypermarche;
+    }
 
     public Hypermarche getHypermarche() {
         return hypermarche;
@@ -15,11 +19,6 @@ public class Entrepot {
 
     public LinkedList<Livraison> getLivraisons() {
         return Livraisons;
-    }
-
-    Entrepot(int capaciteLimite, Hypermarche hypermarche){
-        this.capaciteLimite = capaciteLimite;
-        this.hypermarche = hypermarche;
     }
 
     public int getCapatiteLimite(){
