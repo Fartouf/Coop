@@ -39,7 +39,7 @@ public class Producteur {
         int productuctionHebdo = ((int)(Math.random() * 5) +1); 
 
         for(int c = 0; c < productuctionHebdo ; c++){
-            //on cree une nouvelle livraison en focntion de la frequence de production
+            //on crée une nouvelle livraison en fonction de la fréquence de production
             this.addStock(new Livraison(this));
         }
     }

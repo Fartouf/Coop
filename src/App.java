@@ -35,10 +35,10 @@ public class App {
         //Temps de la simulation en semaines.
         int tempsDeSim = 2;
 
-        //liste de producteurs ==> hashset pour eviter des doublons
+        //liste de producteurs ==> hashset pour éviter des doublons
         HashSet<Producteur> producteurs = new HashSet<Producteur>();
 
-        //liste de camions ==> hashset pour eviter des doublons
+        //liste de camions ==> hashset pour éviter des doublons
         HashSet<Camion> camions = new HashSet<Camion>();
 
         try (Scanner userInput = new Scanner(System.in)) {

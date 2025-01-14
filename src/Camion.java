@@ -22,7 +22,7 @@ public class Camion {
 
         LinkedList<Livraison> chargeCamion = new LinkedList<Livraison>();
 
-        // Cas 1 : la capacité disponible de l'entrerepot est superieure a la capacité
+        // Cas 1 : la capacité disponible de l'entrepot est superieure a la capacité
         // de transport d'un camion
         if (capaciteEntrepot > this.capaciteCamion) {
             // Cas 1.1 : le camion peut transorter plus de livraisons que sont disponibles
@@ -31,7 +31,7 @@ public class Camion {
                 for (int s = 0; s < stockProducteur; s++) {
                     // on ajoute tout le stock du fournisseur dans le camion
                     chargeCamion.add(producteur.getStock().getFirst());
-                    //on eleve la livraison du stock du producteur
+                    //on enleve la livraison du stock du producteur
                     producteur.removeStock();
                 }
             }
@@ -40,7 +40,7 @@ public class Camion {
                 for (int c = 0; c < this.capaciteCamion; c++) {
                     // on ajoute une livraison dans le camion
                     chargeCamion.add(producteur.getStock().getFirst());
-                    //on eleve la livraison du stock du producteur
+                    //on enleve la livraison du stock du producteur
                     producteur.removeStock();
                 }
             }
@@ -53,7 +53,7 @@ public class Camion {
                 for (int c = 0; c < capaciteEntrepot; c++) {
                     // on ajoute une livraison au camion
                     chargeCamion.add(producteur.getStock().getFirst());
-                    //on eleve la livraison du stock du producteur
+                    //on enleve la livraison du stock du producteur
                     producteur.removeStock();
                 }
             }
@@ -62,7 +62,7 @@ public class Camion {
                 for (int s = 0; s < stockProducteur; s++) {
                     // on ajoute une livraison au camion
                     chargeCamion.add(producteur.getStock().getFirst());
-                    //on eleve la livraison du stock du producteur
+                    //on enleve la livraison du stock du producteur
                     producteur.removeStock();
                 }
             }
@@ -85,7 +85,7 @@ public class Camion {
                 System.out.println( charge.size() + " Nouvelles livraisons du producteur " + producteur.getNomProducteur() + " arrivées à l'entrepot par le camion n°" + this.numeroCamion);
             }else{
                 //log.info(("Nouvelle livraison du producteur " + producteur.getNomProducteur() + " arrivées à l'entrepot par le camion n°" + this.numeroCamion));
-                System.out.println("Nouvelle livraison du producteur " + producteur.getNomProducteur() + " arrivées à l'entrepot par le camion n°" + this.numeroCamion);
+                System.out.println("Nouvelle livraison du producteur " + producteur.getNomProducteur() + " arrivée à l'entrepot par le camion n°" + this.numeroCamion);
             }
         }
         // Cas 2 le stock du producteur est vide et l'entrepot n'est pas rempli au maximum
